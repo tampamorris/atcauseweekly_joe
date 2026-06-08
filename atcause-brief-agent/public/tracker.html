@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Tracker · atCAUSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0D1117; --surface: #161B22; --surface2: #1C2330; --surface3: #21262D;
+    --border: #30363D; --border2: #3D444D;
+    --green: #1D9E75; --green-dim: #0F6E56; --green-glow: rgba(29,158,117,0.15);
+    --amber: #D4A017; --amber-dim: rgba(212,160,23,0.12);
+    --blue: #58A6FF; --blue-dim: rgba(88,166,255,0.1);
+    --red: #F85149; --red-dim: rgba(248,81,73,0.1);
+    --teal: #0B7A75; --teal-dim: rgba(11,122,117,0.12);
+    --purple: #A371F7; --purple-dim: rgba(163,113,247,0.1);
+    --text: #E6EDF3; --text2: #8B949E; --text3: #484F58;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+  }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; }
+  .app { max-width: 820px; margin: 0 auto; padding: 0 0 60px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); min-height: 100vh; }
+
+  .header { padding: 14px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg); z-index: 10; }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 28px; height: 28px; background: var(--green); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .header-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
+  .header-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+  .back-btn { font-family: var(--mono); font-size: 11px; padding: 5px 10px; border-radius: 5px; border: 1px solid var(--border); background: none; color: var(--text2); cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 4px; transition: all .15s; }
+  .back-btn:hover { border-color: var(--border2); color: var(--text); }
+
+  .summary { padding: 16px 24px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .met { background: var(--surface2); border-radius: 6px; padding: 10px 12px; }
+  .met-l { font-size: 11px; color: var(--text3); margin-bottom: 3px; }
+  .met-v { font-size: 20px; font-weight: 500; color: var(--text); font-family: var(--mono); }
+
+  .filter-bar { padding: 12px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
+  .fbtn { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 5px 12px; border-radius: 4px; border: 1px solid var(--border); background: none; color: var(--text3); cursor: pointer; transition: all .15s; text-transform: uppercase; letter-spacing: .04em; }
+  .fbtn:hover { border-color: var(--border2); color: var(--text2); }
+  .fbtn.on { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+
+  .projects { padding: 16px 24px; }
+  .stream-block { margin-bottom: 24px; }
+  .stream-hd { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .stream-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; overflow: hidden; transition: border-color .15s; }
+  .card:hover { border-color: var(--border2); }
+  .card.open { border-color: var(--border2); }
+
+  .card-top { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; }
+  .c-icon { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .c-info { flex: 1; min-width: 0; }
+  .c-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-sub { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .pill { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; font-family: var(--mono); }
+  .p-done { background: rgba(29,158,117,0.15); color: #1D9E75; }
+  .p-active { background: rgba(88,166,255,0.12); color: #58A6FF; }
+  .p-pending { background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
+  .p-blocked { background: rgba(248,81,73,0.12); color: #F85149; }
+  .p-review { background: rgba(212,160,23,0.15); color: #D4A017; }
+  .prog-wrap { width: 72px; }
+  .prog-bar { height: 3px; background: var(--border2); border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 2px; }
+  .prog-num { font-size: 10px; color: var(--text3); text-align: right; margin-top: 2px; font-family: var(--mono); }
+  .chevron { font-size: 14px; color: var(--text3); transition: transform .2s; }
+  .chevron.open { transform: rotate(180deg); }
+
+  .card-body { display: none; border-top: 1px solid var(--border); padding: 14px 16px; }
+  .card-body.open { display: block; }
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bd-label { font-size: 10px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .next-action { font-size: 13px; color: var(--text2); line-height: 1.55; }
+  .doc-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .doc-tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: var(--surface2); color: var(--text3); border: 1px solid var(--border); font-family: var(--mono); }
+
+  .ms-list { list-style: none; }
+  .ms-item { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .ms-item:last-child { border-bottom: none; }
+  .ms-box { width: 15px; height: 15px; border-radius: 3px; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; cursor: pointer; margin-top: 1px; transition: all .15s; }
+  .ms-box.done { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+  .ms-text { font-size: 12px; color: var(--text2); line-height: 1.4; flex: 1; }
+  .ms-text.done { text-decoration: line-through; color: var(--text3); }
+
+  .empty { padding: 48px 24px; text-align: center; color: var(--text3); font-family: var(--mono); font-size: 12px; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="logo-mark">AC</div>
+      <div>
+        <div class="header-title">Project Tracker</div>
+        <div class="header-sub">atCAUSE Law · Sales Director</div>
+      </div>
+    </div>
+    <a href="/" class="back-btn"><i class="ti ti-arrow-left" aria-hidden="true"></i> Home</a>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="filter-bar">
+    <button class="fbtn on" onclick="setFilter('all',this)">All</button>
+    <button class="fbtn" onclick="setFilter('active',this)">Active</button>
+    <button class="fbtn" onclick="setFilter('done',this)">Done</button>
+    <button class="fbtn" onclick="setFilter('pending',this)">Pending</button>
+    <button class="fbtn" onclick="setFilter('blocked',this)">Needs decision</button>
+    <button class="fbtn" onclick="setFilter('review',this)">Needs review</button>
+    <button class="fbtn" onclick="setFilter('revenue',this)">Revenue</button>
+    <button class="fbtn" onclick="setFilter('team',this)">Team</button>
+    <button class="fbtn" onclick="setFilter('systems',this)">Systems</button>
+    <button class="fbtn" onclick="setFilter('bd',this)">BD</button>
+  </div>
+
+  <div class="projects" id="projects"></div>
+</div>
+
+<script>
+const PROJECTS = [
+  { id:'followup', title:'Post-consult follow-up sequence', sub:'Re-engage unsigned prospects · 4-touch 10-day sequence', stream:'revenue', streamLabel:'Revenue', status:'active', owner:'Jon', icon:'ti-mail', bg:'rgba(29,158,117,0.15)', ic:'#1D9E75', nextAction:'Pull unsigned prospect list from Zoho — actual count needed before deploying. Sequence is built and ready to go.', docs:['Post-Consult Follow-up Sequence'], milestones:[{t:'4-touch email/SMS sequence written',d:true},{t:'Objection handler scripts (all 4 types)',d:true},{t:'Pull unsigned prospect list from Zoho',d:false},{t:'Deploy sequence to cold list',d:false},{t:'First re-engagement closes tracked',d:false}] },
+  { id:'leadresponse', title:'Lead response automation', sub:'Auto-text web form leads within 5 minutes', stream:'revenue', streamLabel:'Revenue', status:'pending', owner:'Jon + Zoho admin', icon:'ti-bolt', bg:'rgba(212,160,23,0.15)', ic:'#D4A017', nextAction:'Configure auto-text workflow in Zoho/RingCentral. Message drafted. Needs technical setup with the admin.', docs:[], milestones:[{t:'Auto-text message drafted',d:true},{t:'Zoho workflow configured',d:false},{t:'RingCentral SMS connected',d:false},{t:'Tested end-to-end',d:false}] },
+  { id:'leadnurture', title:'Zoho lead nurture campaign', sub:'Email + SMS cadence · A/B testing · sales tactics baked in', stream:'revenue', streamLabel:'Revenue', status:'pending', owner:'Jon', icon:'ti-chart-arrows', bg:'rgba(163,113,247,0.15)', ic:'#A371F7', nextAction:'Architecture to be built after Joe confirms product focus. Requires alignment before building sequences.', docs:[], milestones:[{t:'Joe alignment on product focus confirmed',d:false},{t:'Campaign architecture mapped',d:false},{t:'Email + SMS copy written',d:false},{t:'A/B test variants created',d:false},{t:'Live in Zoho with tracking',d:false}] },
+  { id:'probatetrack', title:'Probate talk track', sub:'Buzz-word confidence · intake vs attorney boundary defined', stream:'revenue', streamLabel:'Revenue', status:'active', owner:'Jon', icon:'ti-file-text', bg:'rgba(88,166,255,0.12)', ic:'#58A6FF', nextAction:'Build the probate-specific talk track: key buzz words, client psychology, and clear intake vs. attorney boundaries.', docs:['Product Knowledge Training Guide'], milestones:[{t:'Probate section in product training doc',d:true},{t:'Key buzz words documented',d:false},{t:'Intake vs attorney boundary defined in writing',d:false},{t:'Client psychology framework written',d:false},{t:'Role-play scenarios built around probate',d:false}] },
+  { id:'jose', title:'Jose — 60-day development plan', sub:'Product mastery → intake calls → co-consults → independent', stream:'team', streamLabel:'Team', status:'active', owner:'Jon', icon:'ti-user', bg:'rgba(212,160,23,0.15)', ic:'#D4A017', nextAction:'Deliver plan to Jose today. Start Phase 1 (product mastery) this week — Day 1 is the full training guide read-through.', docs:['Jose 60-Day Development Plan','Product Knowledge Training Guide','Intake Rep Week 4 Assessment'], milestones:[{t:'Development plan built',d:true},{t:'Plan delivered to Jose',d:false},{t:'Phase 1 exit assessment passed',d:false},{t:'Phase 2 (intake calls) started',d:false},{t:'Phase 2 exit assessment passed',d:false},{t:'Phase 3 (co-consultations) started',d:false},{t:'First independent consultation',d:false},{t:'15%+ close rate 3 consecutive weeks',d:false}] },
+  { id:'julyhire', title:'July hire onboarding plan', sub:'New consultant starting ~4 weeks out · 60-day ramp ready', stream:'team', streamLabel:'Team', status:'active', owner:'Jon', icon:'ti-user-plus', bg:'rgba(11,122,117,0.15)', ic:'#0B7A75', nextAction:'Finalize week-by-week onboarding calendar before her start date. Training doc and assessment are ready.', docs:['Sales Team Operating System','Product Knowledge Training Guide','Intake Rep Week 4 Assessment'], milestones:[{t:'Training materials ready',d:true},{t:'Week 4 benchmark assessment built',d:true},{t:'Week-by-week onboarding calendar created',d:false},{t:'System access and Zoho login arranged',d:false},{t:'Day 1 agenda ready',d:false},{t:'Week 4 assessment passed',d:false},{t:'Independent consultations by day 60',d:false}] },
+  { id:'augusthire', title:'August hire proposal', sub:'Third consultant · trains alongside July hire', stream:'team', streamLabel:'Team', status:'review', owner:'Jon → Joe decision', icon:'ti-users', bg:'rgba(163,113,247,0.15)', ic:'#A371F7', nextAction:'Present business case to Joe this week. Need yes/no so job posting can go live in time.', docs:['Executive Brief Week 1'], milestones:[{t:'Business case built',d:true},{t:'Included in executive brief',d:true},{t:'Joe decision received',d:false},{t:'Job description written',d:false},{t:'Sourcing started',d:false},{t:'Hired and start date confirmed',d:false}] },
+  { id:'bdtransition', title:'Tenured consultant → BD transition', sub:'Metric-gated 3-phase plan · referral channel ownership', stream:'team', streamLabel:'Team', status:'active', owner:'Jon', icon:'ti-chart-arrows', bg:'rgba(29,158,117,0.15)', ic:'#1D9E75', nextAction:'Phase 1: shadow her this week and document everything. Nothing she does should be undocumented by end of week 4.', docs:['Sales Team Operating System','Referral Partner Playbook'], milestones:[{t:'BD transition plan documented',d:true},{t:'Phase 1: all knowledge extracted',d:false},{t:'New consultant hits 15% close rate (trigger)',d:false},{t:'Phase 2: volume transfer begins',d:false},{t:'Phase 3: full BD transition',d:false},{t:'5 active referral partners in 60 days of BD',d:false}] },
+  { id:'teamtraining', title:'Team training program', sub:'Weekly sessions · job-direct curriculum · builds confidence', stream:'team', streamLabel:'Team', status:'pending', owner:'Jon', icon:'ti-school', bg:'rgba(88,166,255,0.12)', ic:'#58A6FF', nextAction:'Design the training curriculum. Beyond drills and role-plays — something that connects directly to the job.', docs:['Sales Team Operating System'], milestones:[{t:'Training curriculum designed',d:false},{t:'Weekly session format agreed with Joe',d:false},{t:'First session delivered',d:false},{t:'Running consistently weekly',d:false}] },
+  { id:'weeklybrief', title:'Weekly executive brief to Joe', sub:'Monday morning · agent accumulates data Mon–Fri', stream:'systems', streamLabel:'Systems', status:'done', owner:'Jon', icon:'ti-report', bg:'rgba(29,158,117,0.15)', ic:'#1D9E75', nextAction:'Live at atcause-weekly.netlify.app — use daily check-in Mon–Fri, generate brief Monday morning.', docs:['Executive Brief Week 1'], milestones:[{t:'Brief format designed',d:true},{t:'Week 1 executive brief built',d:true},{t:'Weekly brief agent built',d:true},{t:'Deployed to Netlify',d:true},{t:'First Monday brief delivered to Joe',d:false}] },
+  { id:'salesopsystem', title:'Sales team operating system', sub:'Role playbooks · scripts · ramp plans · KPIs', stream:'systems', streamLabel:'Systems', status:'active', owner:'Jon', icon:'ti-settings', bg:'rgba(212,160,23,0.15)', ic:'#D4A017', nextAction:'Complete probate talk track and consultation close framework. Weekly KPI dashboard still to build.', docs:['Sales Team Operating System','Product Knowledge Training Guide','Intake Rep Week 4 Assessment'], milestones:[{t:'Team structure and risk map',d:true},{t:'Intake rep playbook and script',d:true},{t:'Consultation 4-stage framework',d:true},{t:'Objection handling guide',d:true},{t:'30/60-day ramp plans',d:true},{t:'Week 4 intake assessment',d:true},{t:'Probate talk track',d:false},{t:'Weekly KPI dashboard',d:false},{t:'Consultant week 8 benchmark assessment',d:false}] },
+  { id:'producttraining', title:'Product knowledge training guide', sub:'All practice areas · client profiles · what not to say', stream:'systems', streamLabel:'Systems', status:'review', owner:'Jon → Ashly review', icon:'ti-book', bg:'rgba(11,122,117,0.15)', ic:'#0B7A75', nextAction:'Send to Ashly to verify product details and confirm Primora pricing before distributing to team.', docs:['Product Knowledge Training Guide'], milestones:[{t:'All 4 practice areas documented',d:true},{t:'Client profiles section',d:true},{t:'What not to say section',d:true},{t:'Quick reference card',d:true},{t:'Ashly reviews for accuracy',d:false},{t:'Primora pricing confirmed and added',d:false},{t:'Distributed to team',d:false}] },
+  { id:'referral', title:'Referral partner program', sub:'30 targets · 5 partner types · scripts and playbook built', stream:'bd', streamLabel:'BD', status:'active', owner:'Jon (→ BD rep)', icon:'ti-handshake', bg:'rgba(29,158,117,0.15)', ic:'#1D9E75', nextAction:'Build target list of 30 in Pinellas County. First outreach wave this week — FA and CPA targets first.', docs:['Referral Partner Playbook','Primora One-Pager','Elder Law One-Pager','Probate Referral Card'], milestones:[{t:'Full playbook with strategy and scripts',d:true},{t:'3 print-ready leave-behind docs',d:true},{t:'Target list of 30 built',d:false},{t:'First outreach wave (10 contacts)',d:false},{t:'5 coffee/lunch meetings held',d:false},{t:'First referral lead in pipeline',d:false},{t:'5 active referral partners by day 60',d:false}] },
+  { id:'joealignment', title:'Joe alignment — two open decisions', sub:'Product focus priority · August hire approval', stream:'bd', streamLabel:'BD', status:'blocked', owner:'Joe decision needed', icon:'ti-alert-triangle', bg:'rgba(248,81,73,0.12)', ic:'#F85149', nextAction:'Get in front of Joe this week with the executive brief. Two checkboxes: product focus and August hire.', docs:['Executive Brief Week 1'], milestones:[{t:'Executive brief built and delivered',d:true},{t:'Product focus decision from Joe',d:false},{t:'August hire decision from Joe',d:false}] }
+];
+
+const STREAMS = ['revenue','team','systems','bd'];
+const STREAM_LABELS = { revenue:'Revenue', team:'Team', systems:'Systems & tools', bd:'BD & partnerships' };
+
+let filter = 'all';
+let expanded = new Set();
+let msState = {};
+
+try { msState = JSON.parse(localStorage.getItem('ac_tracker_ms') || '{}'); } catch(e) {}
+function saveMs() { try { localStorage.setItem('ac_tracker_ms', JSON.stringify(msState)); } catch(e) {} }
+
+function getMsDone(pid, i) {
+  const k = pid + '_' + i;
+  return k in msState ? msState[k] : PROJECTS.find(p=>p.id===pid).milestones[i].d;
+}
+function toggleMs(pid, i, e) {
+  e.stopPropagation();
+  const k = pid + '_' + i;
+  msState[k] = !getMsDone(pid, i);
+  saveMs();
+  render();
+}
+function getProgress(p) {
+  const total = p.milestones.length;
+  if (!total) return 0;
+  const done = p.milestones.filter((m,i) => getMsDone(p.id,i)).length;
+  return Math.round(done/total*100);
+}
+function progColor(pct) {
+  if (pct===100) return '#1D9E75';
+  if (pct>=60) return '#58A6FF';
+  if (pct>=30) return '#D4A017';
+  return '#484F58';
+}
+function pillClass(s) { return {done:'p-done',active:'p-active',pending:'p-pending',blocked:'p-blocked',review:'p-review'}[s]||'p-pending'; }
+function pillLabel(s) { return {done:'Done',active:'Active',pending:'Pending',blocked:'Needs decision',review:'Needs review'}[s]||s; }
+
+function setFilter(f, btn) {
+  filter = f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+function toggleCard(id) {
+  expanded.has(id) ? expanded.delete(id) : expanded.add(id);
+  render();
+}
+
+function filtered() {
+  return PROJECTS.filter(p => {
+    if (filter==='all') return true;
+    if (['revenue','team','systems','bd'].includes(filter)) return p.stream===filter;
+    return p.status===filter;
+  });
+}
+
+function renderSummary() {
+  const total=PROJECTS.length, done=PROJECTS.filter(p=>p.status==='done').length;
+  const active=PROJECTS.filter(p=>p.status==='active').length;
+  const attn=PROJECTS.filter(p=>p.status==='blocked'||p.status==='review').length;
+  const avg=Math.round(PROJECTS.reduce((a,p)=>a+getProgress(p),0)/total);
+  document.getElementById('summary').innerHTML=`
+    <div class="met"><div class="met-l">Total</div><div class="met-v">${total}</div></div>
+    <div class="met"><div class="met-l">Active</div><div class="met-v">${active}</div></div>
+    <div class="met"><div class="met-l">Done</div><div class="met-v">${done}</div></div>
+    <div class="met"><div class="met-l">Needs attention</div><div class="met-v">${attn}</div></div>
+    <div class="met"><div class="met-l">Progress</div><div class="met-v">${avg}%</div></div>`;
+}
+
+function render() {
+  renderSummary();
+  const list = filtered();
+  const container = document.getElementById('projects');
+  if (!list.length) { container.innerHTML='<div class="empty">No projects match this filter.</div>'; return; }
+
+  const byStream = {};
+  list.forEach(p=>{ if(!byStream[p.stream]) byStream[p.stream]=[]; byStream[p.stream].push(p); });
+
+  container.innerHTML = STREAMS.filter(s=>byStream[s]).map(s => {
+    const cards = byStream[s].map(p => {
+      const pct = getProgress(p);
+      const isOpen = expanded.has(p.id);
+      const ms = p.milestones.map((m,i)=>{
+        const done=getMsDone(p.id,i);
+        return `<li class="ms-item">
+          <div class="ms-box ${done?'done':''}" onclick="toggleMs('${p.id}',${i},event)" aria-label="${done?'Mark incomplete':'Mark complete'}">
+            ${done?'<i class="ti ti-check" aria-hidden="true"></i>':''}
+          </div>
+          <span class="ms-text ${done?'done':''}">${m.t}</span>
+        </li>`;
+      }).join('');
+      const docs = p.docs.length ? p.docs.map(d=>`<span class="doc-tag">${d}</span>`).join('')  : '';
+      return `
+        <div class="card ${isOpen?'open':''}" id="card-${p.id}">
+          <div class="card-top" onclick="toggleCard('${p.id}')">
+            <div class="c-icon" style="background:${p.bg}"><i class="ti ${p.icon}" style="color:${p.ic}" aria-hidden="true"></i></div>
+            <div class="c-info">
+              <div class="c-title">${p.title}</div>
+              <div class="c-sub">${p.sub}</div>
+            </div>
+            <div class="c-right">
+              <span class="pill ${pillClass(p.status)}">${pillLabel(p.status)}</span>
+              <div class="prog-wrap">
+                <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${progColor(pct)}"></div></div>
+                <div class="prog-num">${pct}%</div>
+              </div>
+              <i class="ti ti-chevron-down chevron ${isOpen?'open':''}" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="card-body ${isOpen?'open':''}">
+            <div class="body-grid">
+              <div>
+                <div class="bd-label">Next action</div>
+                <div class="next-action">${p.nextAction}</div>
+                ${docs?`<div class="doc-row">${docs}</div>`:''}
+              </div>
+              <div>
+                <div class="bd-label">Milestones</div>
+                <ul class="ms-list">${ms}</ul>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    return `<div class="stream-block"><div class="stream-hd">${STREAM_LABELS[s]}</div>${cards}</div>`;
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>
