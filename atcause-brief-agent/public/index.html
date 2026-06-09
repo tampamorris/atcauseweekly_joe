@@ -282,6 +282,106 @@
   .tool-arrow { font-size: 16px; color: var(--border2); margin-left: auto; align-self: flex-end; }
   .tool-card:hover .tool-arrow { color: var(--green); }
 
+  /* ALERT CARD */
+  .alert-card {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 18px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .alert-card.has-alerts {
+    border-color: var(--amber);
+    background: linear-gradient(135deg, var(--amber-light) 0%, var(--surface) 100%);
+  }
+  .alert-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .alert-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .alert-count {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .alert-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .alert-leads-list {
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 12px;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .alert-lead-item {
+    font-size: 11px;
+    color: var(--text2);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+  }
+  .alert-lead-item:last-child {
+    border-bottom: none;
+  }
+  .alert-lead-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .alert-lead-time {
+    color: var(--text3);
+    font-family: var(--sans);
+  }
+  .alert-action {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .alert-btn {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .alert-btn:hover {
+    background: var(--amber-dim);
+    transform: translateY(-1px);
+  }
+  .alert-loading {
+    color: var(--text3);
+    font-size: 12px;
+    font-style: italic;
+  }
+
   /* FOOTER */
   .footer {
     text-align: center;
@@ -336,6 +436,18 @@
     <div class="stat"><div class="stat-v">14</div><div class="stat-l">Projects</div></div>
     <div class="stat"><div class="stat-v" id="daysIn">1</div><div class="stat-l">Days in role</div></div>
     <div class="stat"><div class="stat-v">60</div><div class="stat-l">Day target</div></div>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="alert-card" id="alertCard">
+    <div class="alert-badge">⚠ ALERT</div>
+    <div class="alert-title">New Uncontacted Leads</div>
+    <div class="alert-count" id="alertCount">—</div>
+    <div class="alert-desc" id="alertDesc">Checking for new leads...</div>
+    <div class="alert-leads-list" id="alertLeadsList" style="display:none;"></div>
+    <div class="alert-action">
+      <a href="https://app.atcauselaw.com/manager/lead-response-time" target="_blank" class="alert-btn">View Lead Response Time →</a>
+    </div>
   </div>
 
   <!-- TOOLS -->
@@ -459,7 +571,53 @@ function renderDayBadges() {
   }).join('');
 }
 
+async function fetchUncontactedLeads() {
+  try {
+    const response = await fetch('/api/get-uncontacted-leads');
+    const data = await response.json();
+    
+    if (data.success) {
+      const count = data.count || 0;
+      const leads = data.leads || [];
+      
+      const alertCard = document.getElementById('alertCard');
+      const alertCount = document.getElementById('alertCount');
+      const alertDesc = document.getElementById('alertDesc');
+      const alertLeadsList = document.getElementById('alertLeadsList');
+      
+      alertCount.textContent = count;
+      
+      if (count > 0) {
+        alertCard.classList.add('has-alerts');
+        alertDesc.textContent = `${count} new lead${count !== 1 ? 's' : ''} waiting to be contacted. Respond within 5 minutes for best conversion.`;
+        
+        // Render leads list
+        alertLeadsList.innerHTML = leads.map(lead => `
+          <div class="alert-lead-item">
+            <span class="alert-lead-name">${lead.name}</span>
+            <span class="alert-lead-time">${lead.timesSinceLead}</span>
+          </div>
+        `).join('');
+        alertLeadsList.style.display = 'block';
+      } else {
+        alertCard.classList.remove('has-alerts');
+        alertDesc.textContent = 'No new uncontacted leads at this time. Great work!';
+        alertLeadsList.style.display = 'none';
+      }
+    } else {
+      document.getElementById('alertDesc').textContent = 'Unable to fetch lead data. Check back soon.';
+    }
+  } catch (err) {
+    console.error('Error fetching uncontacted leads:', err);
+    document.getElementById('alertDesc').textContent = 'Error loading leads. Retrying...';
+  }
+}
+
 init();
+fetchUncontactedLeads();
+
+// Refresh alerts every 5 minutes
+setInterval(fetchUncontactedLeads, 5 * 60 * 1000);
 </script>
 </body>
 </html>
