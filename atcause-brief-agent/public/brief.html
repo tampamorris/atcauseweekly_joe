@@ -3,102 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>atCAUSE · Sales Director</title>
+<title>Weekly Brief Agent · atCAUSE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #0D1117; --surface: #161B22;
+    --bg: #0D1117; --surface: #161B22; --surface2: #1C2330; --surface3: #21262D;
     --border: #30363D; --border2: #3D444D;
     --green: #1D9E75; --green-dim: #0F6E56; --green-glow: rgba(29,158,117,0.15);
-    --amber-dim: rgba(212,160,23,0.12); --amber: #D4A017;
+    --amber: #D4A017; --amber-dim: rgba(212,160,23,0.12);
     --blue: #58A6FF; --blue-dim: rgba(88,166,255,0.1);
-    --purple: #A371F7; --purple-dim: rgba(163,113,247,0.1);
+    --red: #F85149;
     --text: #E6EDF3; --text2: #8B949E; --text3: #484F58;
     --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   }
   html, body { height: 100%; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 24px; }
-  .hub { width: 100%; max-width: 580px; }
-  .logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
-  .logo-mark { width: 36px; height: 36px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; }
-  .logo-title { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); }
-  .logo-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
-  .greeting { margin-bottom: 32px; }
-  .day-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 14px; }
-  .day-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-  .greeting-h { font-size: 26px; font-weight: 300; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
-  .greeting-h strong { font-weight: 600; color: var(--green); }
-  .greeting-focus { font-size: 13px; color: var(--text2); line-height: 1.6; }
-  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
-  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
-  .stat-v { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-  .stat-l { font-size: 11px; color: var(--text3); }
-  .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
-  .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; }
-  .tool-card:hover { border-color: var(--border2); transform: translateY(-1px); }
-  .tool-card.green:hover { border-color: rgba(29,158,117,0.5); background: rgba(29,158,117,0.05); }
-  .tool-card.blue:hover { border-color: rgba(88,166,255,0.4); background: var(--blue-dim); }
-  .tool-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-  .tool-icon.green { background: var(--green-glow); color: var(--green); border: 1px solid rgba(29,158,117,0.3); }
-  .tool-icon.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
-  .tool-name { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-  .tool-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
-  .footer { text-align: center; font-family: var(--mono); font-size: 11px; color: var(--text3); }
-  .footer a { color: var(--green); text-decoration: none; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; }
+  .app { display: flex; flex-direction: column; height: 100vh; max-width: 780px; margin: 0 auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .header { padding: 14px 24px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: var(--bg); }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 30px; height: 30px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .header-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
+  .header-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .back-btn { font-family: var(--mono); font-size: 11px; padding: 5px 10px; border-radius: 5px; border: 1px solid var(--border); background: none; color: var(--text2); cursor: pointer; text-decoration: none; transition: all .15s; }
+  .back-btn:hover { border-color: var(--border2); color: var(--text); }
+  .day-badges { display: flex; gap: 4px; }
+  .day-badge { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); color: var(--text3); cursor: pointer; transition: all 0.15s; background: none; position: relative; }
+  .day-badge:hover { border-color: var(--green); color: var(--green); }
+  .day-badge.active { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+  .day-badge.has-data { border-color: var(--border2); color: var(--text2); }
+  .dot { position: absolute; top: 2px; right: 2px; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+  .tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; padding: 0 24px; background: var(--bg); }
+  .tab-btn { font-family: var(--mono); font-size: 11px; font-weight: 500; padding: 10px 16px; background: none; border: none; color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tab-btn:hover { color: var(--text2); }
+  .tab-btn.on { color: var(--green); border-bottom-color: var(--green); }
+  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .tab-pane { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+  .tab-pane.on { display: flex; }
+  .chat-context { padding: 10px 24px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .context-pill { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 7px; border-radius: 4px; background: var(--green-glow); border: 1px solid var(--green); color: var(--green); }
+  .context-label { font-size: 12px; color: var(--text2); }
+  .context-day { font-size: 12px; color: var(--text3); margin-left: auto; font-family: var(--mono); }
+  .messages { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .message { display: flex; gap: 10px; align-items: flex-start; }
+  .message.user { flex-direction: row-reverse; }
+  .avatar { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .avatar.agent { background: var(--green-glow); border: 1px solid var(--green); color: var(--green); }
+  .avatar.user { background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); }
+  .bubble { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.65; }
+  .bubble.agent { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-top-left-radius: 2px; }
+  .bubble.user { background: var(--green-glow); border: 1px solid rgba(29,158,117,0.4); color: var(--text); border-top-right-radius: 2px; }
+  .bubble.system { background: var(--surface); border: 1px solid var(--border); color: var(--text3); font-size: 11px; font-family: var(--mono); max-width: 100%; width: 100%; border-radius: 6px; padding: 8px 12px; }
+  .bubble strong { color: var(--green); font-weight: 600; }
+  .bubble em { color: var(--text2); font-style: italic; }
+  .typing { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--green); opacity: 0.4; animation: blink 1.2s ease-in-out infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1.1)} }
+  .input-area { padding: 14px 24px; border-top: 1px solid var(--border); flex-shrink: 0; background: var(--bg); }
+  .input-row { display: flex; gap: 8px; align-items: flex-end; }
+  .input-box { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 14px; color: var(--text); font-family: var(--sans); font-size: 13.5px; resize: none; outline: none; min-height: 42px; max-height: 130px; transition: border-color 0.15s; line-height: 1.5; }
+  .input-box:focus { border-color: var(--green); }
+  .input-box::placeholder { color: var(--text3); }
+  .send-btn { width: 38px; height: 38px; border-radius: 7px; background: var(--green); border: none; cursor: pointer; color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; align-self: flex-end; }
+  .send-btn:hover { background: var(--green-dim); }
+  .send-btn:disabled { background: var(--border); cursor: not-allowed; }
+  .input-hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-family: var(--mono); }
+  .scrollable-pane { flex: 1; overflow-y: auto; padding: 20px 24px; }
+  .pane-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .pane-title { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .ghost-btn { font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border2); background: none; color: var(--text3); cursor: pointer; }
+  .ghost-btn:hover { border-color: var(--red); color: var(--red); }
+  .day-block { margin-bottom: 24px; }
+  .day-label { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .day-label::after { content:''; flex:1; height:1px; background:var(--border); }
+  .day-label span { color: var(--text3); font-weight: 400; }
+  .data-entry { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin-bottom: 6px; }
+  .data-q { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-bottom: 5px; }
+  .data-a { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .empty-msg { padding: 48px 24px; text-align: center; color: var(--text3); font-family: var(--mono); font-size: 12px; line-height: 1.8; }
+  .brief-actions { padding: 14px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; flex-shrink: 0; background: var(--bg); }
+  .btn { font-family: var(--mono); font-size: 11px; font-weight: 500; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--border2); background: none; color: var(--text2); cursor: pointer; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.04em; }
+  .btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+  .btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+  .btn.primary:hover { background: var(--green-dim); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .brief-output-wrap { flex:1; overflow-y:auto; padding: 20px 24px; }
+  .brief-output { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; font-size: 13.5px; line-height: 1.75; color: var(--text); }
+  .brief-heading { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .brief-section { margin-bottom: 20px; }
+  .brief-body { color: var(--text2); line-height: 1.75; }
+  .brief-body li { margin-left: 16px; margin-bottom: 4px; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 </style>
 </head>
 <body>
-<div class="hub">
-  <div class="logo-row">
-    <div class="logo-mark">AC</div>
-    <div>
-      <div class="logo-title">atCAUSE Law Office</div>
-      <div class="logo-sub">Sales Director · Jon Morris</div>
+<div class="app">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo-mark">AC</div>
+      <div>
+        <div class="header-title">Weekly Brief Agent</div>
+        <div class="header-sub">atCAUSE Law - Sales Director</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="day-badges" id="dayBadges"></div>
+      <a href="/" class="back-btn">Home</a>
     </div>
   </div>
-
-  <div class="greeting">
-    <div class="day-badge"><div class="day-dot"></div><span id="dayLabel">—</span></div>
-    <div class="greeting-h">Good <strong id="tod">morning</strong>, Jon.</div>
-    <div class="greeting-focus" id="focus">—</div>
+  <div class="tabs">
+    <button class="tab-btn on" onclick="switchTab('chat',this)">Daily check-in</button>
+    <button class="tab-btn" onclick="switchTab('data',this)">Data log</button>
+    <button class="tab-btn" onclick="switchTab('brief',this)">Monday brief</button>
   </div>
-
-  <div class="stats-row">
-    <div class="stat"><div class="stat-v">14</div><div class="stat-l">Projects</div></div>
-    <div class="stat"><div class="stat-v" id="daysIn">—</div><div class="stat-l">Days in role</div></div>
-    <div class="stat"><div class="stat-v">60</div><div class="stat-l">Day target</div></div>
-  </div>
-
-  <div class="tools">
-    <a href="/brief.html" class="tool-card green">
-      <div class="tool-icon green">&#128203;</div>
-      <div>
-        <div class="tool-name">Weekly brief</div>
-        <div class="tool-desc">Daily check-ins that build Joe's Monday update automatically</div>
+  <div class="content">
+    <div class="tab-pane on" id="tab-chat">
+      <div class="chat-context">
+        <div class="context-pill">LIVE</div>
+        <div class="context-label" id="contextLabel">Loading...</div>
+        <div class="context-day" id="contextDay"></div>
       </div>
-    </a>
-    <a href="/tracker.html" class="tool-card blue">
-      <div class="tool-icon blue">&#128202;</div>
-      <div>
-        <div class="tool-name">Project tracker</div>
-        <div class="tool-desc">All workstreams with milestones, status, and next actions</div>
+      <div class="messages" id="messages"></div>
+      <div class="input-area">
+        <div class="input-row">
+          <textarea id="inputBox" class="input-box" placeholder="Type your answer..." onkeydown="handleKey(event)" oninput="autoResize(this)" rows="1"></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">&#8593;</button>
+        </div>
+        <div class="input-hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</div>
       </div>
-    </a>
+    </div>
+    <div class="tab-pane" id="tab-data">
+      <div class="scrollable-pane">
+        <div class="pane-header">
+          <div class="pane-title">Accumulated data this week</div>
+          <button class="ghost-btn" onclick="clearWeek()">Clear week</button>
+        </div>
+        <div id="dataLog"></div>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab-brief">
+      <div class="brief-actions">
+        <button class="btn primary" id="genBtn" onclick="generateBrief()">Generate Monday brief</button>
+        <button class="btn" onclick="copyBrief()">Copy text</button>
+        <button class="btn" onclick="newWeek()">New week</button>
+      </div>
+      <div class="brief-output-wrap">
+        <div class="brief-output" id="briefOutput">
+          <span style="color:var(--text3);font-family:var(--mono);font-size:12px;">Answer the daily check-in questions Mon-Fri, then generate the Monday brief. The agent accumulates everything you tell it and assembles Joe's update automatically.</span>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="footer">jonathan.m@atcauselaw.com &nbsp;·&nbsp; (813) 444-8663 &nbsp;·&nbsp; <a href="https://atcauselaw.com" target="_blank">atcauselaw.com</a></div>
 </div>
 <script>
-const FOCUS = ['Weekend — rest up.','Monday — get the brief to Joe. Pipeline review with the team.','Tuesday — check Jose\'s intake progress. July hire prep on track?','Wednesday — re-engagement sequence. Any cold prospect responses?','Thursday — referral partners. Any meetings booked or held?','Friday — log the week. Wins, blockers, next week priorities.','Weekend — rest up.'];
-const now = new Date();
-const h = now.getHours();
-document.getElementById('tod').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
-document.getElementById('dayLabel').textContent = now.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
-document.getElementById('focus').textContent = FOCUS[now.getDay()];
-const start = new Date('2026-06-08');
-document.getElementById('daysIn').textContent = Math.max(1, Math.floor((now - start)/(86400000)) + 1);
+const DAYS=['MON','TUE','WED','THU','FRI'];
+const DAY_FOCUS={MON:{label:'Pipeline & Numbers'},TUE:{label:'Team & Activity'},WED:{label:'Deals & Follow-up'},THU:{label:'Referrals & BD'},FRI:{label:'Wins, Blockers & Next Week'}};
+let currentDay=getDefaultDay(),weekData=load('atcause_weekdata')||{},history=[],msgList=[],loading=false,briefText='';
+function getDefaultDay(){const d=new Date().getDay();return DAYS[(d>=1&&d<=5)?d-1:0];}
+function load(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function init(){renderDayBadges();setContextBar();startConversation();}
+function renderDayBadges(){document.getElementById('dayBadges').innerHTML=DAYS.map(d=>{const active=d===currentDay?' active':'';const hasData=weekData[d]&&weekData[d].length>0;const dot=hasData?'<span class="dot"></span>':'';return`<button class="day-badge${active}${hasData?' has-data':''}" onclick="switchDay('${d}')">${d}${dot}</button>`;}).join('');}
+function switchDay(day){currentDay=day;history=[];msgList=[];document.getElementById('messages').innerHTML='';renderDayBadges();setContextBar();startConversation();}
+function setContextBar(){const f=DAY_FOCUS[currentDay];document.getElementById('contextLabel').textContent=`${f.label} - building this week's brief`;document.getElementById('contextDay').textContent=currentDay;}
+function switchTab(id,btn){document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));document.getElementById('tab-'+id).classList.add('on');btn.classList.add('on');if(id==='data')renderDataLog();}
+function buildSystem(){return`You are a direct, no-nonsense weekly briefing agent for Jon Morris, Sales Director at atCAUSE Law Office (the Non-Stuffy Attorneys) in Clearwater, FL.
+
+Your job: ask Jon sharp, specific questions each day so you can build a tight, credible Monday morning executive brief for Joe Guernaccini (founder/owner).
+
+KEY CONTEXT:
+- atCAUSE: estate planning, probate, elder law/Medicaid, business law. Flat-fee billing.
+- Flagship: Primora Trust Plan. Probate is highest call volume.
+- Revenue ~$426K/month. 10% growth target in 60 days. 1,100+ leads/month from marketing.
+- CRM: Zoho + RingCentral.
+- Team: 2 intake reps + backup, tenured consultant (BD transition planned), Jose Chavez (new consultant - strong sales background, no law experience, in Phase 1 product mastery), new sales consultant starting in July (elder care background), attorney doing temp consultant support.
+- Jon is building: post-consult follow-up sequence, intake scripts, probate talk track, consultation framework, referral partner outreach, team training program.
+- Joe is very sharp, frank, direct. No fluff, no made-up numbers. Plain language.
+
+TODAY: ${currentDay} - Focus: ${DAY_FOCUS[currentDay].label}
+
+DATA SO FAR THIS WEEK:
+${JSON.stringify(weekData)}
+
+YOUR RULES:
+1. Ask ONE question at a time. Short. Specific.
+2. Never ask "how's it going" - always pull a specific data point, number, or observation.
+3. If Jon gives a vague answer, push back: "give me the actual number" or "what specifically happened?"
+4. If Jon doesn't know yet, log it as TBD and move on.
+5. After 4-6 solid data points for the day, wrap up with a brief summary and tell him to come back tomorrow.
+6. Keep responses SHORT - one question, max two sentences of context.
+7. Match Jon's energy: direct, plain, conversational.
+8. For numbers: always ask what's in the actual system, not estimates.
+
+DAY PRIORITIES:
+MON: leads received, consultations booked vs held, close rate, revenue closed, unsigned prospect count from Zoho
+TUE: Jose's Phase 1 progress, intake rep metrics, July hire readiness, team issues
+WED: follow-up sequence results (opens, responses, closings), cold lead re-engagements, Primora vs basic attach rate
+THU: referral partner meetings, new contacts, any referral leads in pipeline
+FRI: biggest win (specific + dollar amount), biggest blocker (specific), what's behind, next week priorities`;}
+async function startConversation(){const existing=weekData[currentDay];const hasData=existing&&existing.length>0;const openMsg=hasData?`Resuming ${currentDay} check-in. Already captured: ${JSON.stringify(existing)}. Pick up where we left off or go deeper on anything that needs it.`:`Starting ${currentDay} check-in. Focus: ${DAY_FOCUS[currentDay].label}. Ask your first question.`;history=[{role:'user',content:openMsg}];if(hasData)addBubble('system',`Resuming ${currentDay} - ${existing.length} data point${existing.length>1?'s':''} already logged`);await callAPI();}
+async function sendMessage(){const box=document.getElementById('inputBox');const text=box.value.trim();if(!text||loading)return;box.value='';autoResize(box);addBubble('user',text);history.push({role:'user',content:text});const lastAgent=[...msgList].reverse().find(m=>m.role==='agent');if(lastAgent){if(!weekData[currentDay])weekData[currentDay]=[];weekData[currentDay].push({q:lastAgent.text,a:text,ts:Date.now()});save('atcause_weekdata',weekData);renderDayBadges();}await callAPI();}
+async function callAPI(){setLoading(true);try{const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:buildSystem(),messages:history})});const data=await res.json();const text=data.content?.[0]?.text||'Something went wrong - try again.';addBubble('agent',text);history.push({role:'assistant',content:text});}catch(e){addBubble('agent','Connection error. Check your network and try again.');}setLoading(false);}
+async function generateBrief(){const total=Object.values(weekData).flat().length;if(total===0){document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">No data yet. Complete some daily check-ins first.</div>';return;}document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">Generating brief...</div>';document.getElementById('genBtn').disabled=true;const prompt=`Assemble a Monday morning executive brief for Joe Guernaccini, founder of atCAUSE Law Office. Written by Jon Morris, Sales Director.
+
+TONE: Direct. Frank. No fluff. Short sentences. Joe is sharp and plain-spoken - match that. If a number is not confirmed, flag it as unconfirmed. Never invent data.
+
+DATA THIS WEEK:
+${JSON.stringify(weekData,null,2)}
+
+FORMAT - use exactly these section headers:
+
+THE WEEK IN NUMBERS
+WHAT MOVED
+WHAT DIDN'T MOVE
+TEAM UPDATE
+REFERRALS & BD
+PRIORITY THIS WEEK
+WHAT I NEED FROM YOU
+
+Keep it tight - under one page. Write in Jon's voice, first person. If a section has no data this week, say "Nothing to report" rather than padding it.`;try{const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});const data=await res.json();briefText=data.content?.[0]?.text||'Error generating brief.';renderBriefOutput(briefText);}catch(e){document.getElementById('briefOutput').innerHTML='<div style="color:var(--red);">Error generating brief.</div>';}document.getElementById('genBtn').disabled=false;}
+function renderBriefOutput(text){const HEADINGS=['THE WEEK IN NUMBERS','WHAT MOVED',"WHAT DIDN'T MOVE",'TEAM UPDATE','REFERRALS & BD','PRIORITY THIS WEEK','WHAT I NEED FROM YOU'];const lines=text.split('\n');let html='';let buffer=[];let currentHeading=null;function flushBuffer(){if(!buffer.length)return;const content=buffer.join('\n').trim();if(!content){buffer=[];return;}const bodyHtml=content.split('\n').map(l=>{const t=l.trim();if(!t)return'';if(t.startsWith('-')||t.startsWith('*')||t.match(/^[0-9]+\./))return`<li>${esc(t.replace(/^[-*]\s*/,'').replace(/^[0-9]+\.\s*/,''))}</li>`;return`<p style="margin-bottom:6px;">${esc(t)}</p>`;}).join('');const hasLi=bodyHtml.includes('<li>');const wrapped=hasLi?`<ul style="padding-left:18px;margin-top:4px;">${bodyHtml}</ul>`:bodyHtml;html+=`<div class="brief-section">`;if(currentHeading)html+=`<div class="brief-heading">${esc(currentHeading)}</div>`;html+=`<div class="brief-body">${wrapped}</div></div>`;buffer=[];}lines.forEach(line=>{const trimmed=line.trim();const isHeading=HEADINGS.some(h=>trimmed.toUpperCase()===h||trimmed.toUpperCase().startsWith(h));if(isHeading){flushBuffer();currentHeading=trimmed;}else{buffer.push(line);}});flushBuffer();document.getElementById('briefOutput').innerHTML=html||'<div style="color:var(--text3)">Could not parse brief output.</div>';}
+function esc(str){return(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function copyBrief(){if(!briefText)return;navigator.clipboard.writeText(briefText).catch(()=>{});const btn=event.target;const orig=btn.textContent;btn.textContent='Copied!';setTimeout(()=>btn.textContent=orig,1600);}
+function newWeek(){if(!confirm('Start a new week? This clears all accumulated data.'))return;weekData={};save('atcause_weekdata',weekData);briefText='';document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">New week started.</div>';renderDayBadges();renderDataLog();history=[];msgList=[];document.getElementById('messages').innerHTML='';startConversation();}
+function clearWeek(){if(!confirm('Clear all data for this week?'))return;weekData={};save('atcause_weekdata',weekData);renderDayBadges();renderDataLog();}
+function renderDataLog(){const container=document.getElementById('dataLog');const days=DAYS.filter(d=>weekData[d]&&weekData[d].length>0);if(!days.length){container.innerHTML=`<div class="empty-msg">No data yet this week.<br>Complete daily check-ins to build up the brief.</div>`;return;}container.innerHTML=days.map(d=>`<div class="day-block"><div class="day-label">${d} <span>- ${DAY_FOCUS[d].label}</span></div>${weekData[d].map(e=>`<div class="data-entry"><div class="data-q">${esc(e.q)}</div><div class="data-a">${esc(e.a)}</div></div>`).join('')}</div>`).join('');}
+function addBubble(role,text){msgList.push({role,text});const container=document.getElementById('messages');document.querySelector('.typing-wrap')?.remove();const el=document.createElement('div');if(role==='system'){el.innerHTML=`<div class="bubble system">${esc(text)}</div>`;}else{el.className=`message ${role}`;const label=role==='agent'?'AG':'JM';el.innerHTML=`<div class="avatar ${role}">${label}</div><div class="bubble ${role}">${fmt(text)}</div>`;}container.appendChild(el);container.scrollTop=container.scrollHeight;}
+function fmt(text){return esc(text).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');}
+function setLoading(val){loading=val;document.getElementById('sendBtn').disabled=val;document.querySelector('.typing-wrap')?.remove();if(val){const container=document.getElementById('messages');const el=document.createElement('div');el.className='message agent typing-wrap';el.innerHTML=`<div class="avatar agent">AG</div><div class="bubble agent"><div class="typing"><span></span><span></span><span></span></div></div>`;container.appendChild(el);container.scrollTop=container.scrollHeight;}}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,130)+'px';}
+init();
 </script>
 </body>
 </html>
