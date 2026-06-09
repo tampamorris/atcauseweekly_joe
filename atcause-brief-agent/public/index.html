@@ -5,480 +5,460 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>atCAUSE · Sales Director</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: #0D1117; --surface: #161B22; --surface2: #1C2330; --surface3: #21262D;
-    --border: #30363D; --border2: #3D444D;
-    --green: #1D9E75; --green-dim: #0F6E56; --green-glow: rgba(29,158,117,0.15);
-    --amber: #D4A017; --amber-dim: rgba(212,160,23,0.12);
-    --blue: #58A6FF; --blue-dim: rgba(88,166,255,0.1);
-    --red: #F85149; --teal: #0B7A75; --teal-dim: rgba(11,122,117,0.12);
-    --purple: #A371F7; --purple-dim: rgba(163,113,247,0.1);
-    --text: #E6EDF3; --text2: #8B949E; --text3: #484F58;
-    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+    --bg: #F4F1EC;
+    --surface: #FFFFFF;
+    --surface2: #EDE9E1;
+    --border: #D6D0C4;
+    --border2: #C4BDB0;
+    --green: #2A7A5E;
+    --green-dim: #1F5E47;
+    --green-light: #EBF4EF;
+    --green-mid: #C8E4D8;
+    --navy: #1E3A5F;
+    --navy-light: #EBF0F7;
+    --amber: #8C5E1A;
+    --amber-light: #FBF1E0;
+    --text: #1A1714;
+    --text2: #5A5550;
+    --text3: #9A9490;
+    --serif: 'Lora', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.10);
   }
+
   html, body { height: 100%; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(42,122,94,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(30,58,95,0.04) 0%, transparent 50%);
+  }
 
-  /* ── SHELL ── */
-  .app { display: flex; flex-direction: column; height: 100vh; max-width: 820px; margin: 0 auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .hub {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-  /* ── HEADER ── */
-  .header { padding: 12px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: var(--bg); }
-  .header-left { display: flex; align-items: center; gap: 10px; }
-  .logo-mark { width: 30px; height: 30px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: #fff; flex-shrink: 0; }
-  .header-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
-  .header-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
-  .header-right { display: flex; align-items: center; gap: 8px; }
-  .day-badges { display: flex; gap: 4px; }
-  .day-badge { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 7px; border-radius: 4px; border: 1px solid var(--border); color: var(--text3); cursor: pointer; transition: all 0.15s; background: none; position: relative; }
-  .day-badge:hover { border-color: var(--green); color: var(--green); }
-  .day-badge.active { background: var(--green-glow); border-color: var(--green); color: var(--green); }
-  .day-badge.has-data { border-color: var(--border2); color: var(--text2); }
-  .dot { position: absolute; top: 2px; right: 2px; width: 4px; height: 4px; border-radius: 50%; background: var(--green); }
+  /* LOGO + HEADER */
+  .header-card {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .header-top {
+    background: var(--navy);
+    padding: 20px 24px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-wrap {
+    background: white;
+    border-radius: 8px;
+    padding: 6px 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+  }
+  .logo-wrap img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+  .header-titles { flex: 1; }
+  .header-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+  }
+  .header-bottom {
+    padding: 14px 24px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .day-badge-row { display: flex; gap: 4px; flex-wrap: wrap; }
+  .day-btn {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+    font-family: var(--sans);
+  }
+  .day-btn:hover { border-color: var(--green); color: var(--green); }
+  .day-btn.active { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .day-btn.has-data { border-color: var(--border2); color: var(--text2); }
+  .day-btn .dot {
+    display: inline-block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-left: 3px;
+    vertical-align: middle;
+    margin-top: -1px;
+  }
+  .date-label {
+    font-size: 11px;
+    color: var(--text3);
+    white-space: nowrap;
+    font-family: var(--sans);
+  }
 
-  /* ── NAV TABS ── */
-  .nav-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; padding: 0 24px; background: var(--bg); }
-  .nav-tab { font-family: var(--mono); font-size: 11px; font-weight: 500; padding: 10px 16px; background: none; border: none; color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
-  .nav-tab:hover { color: var(--text2); }
-  .nav-tab.on { color: var(--green); border-bottom-color: var(--green); }
-  .nav-tab .tab-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: none; }
-  .nav-tab.has-data .tab-dot { display: block; }
+  /* QUOTE CARD */
+  .quote-card {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-card::before {
+    content: '\201C';
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    font-family: var(--serif);
+    font-size: 72px;
+    color: var(--green-mid);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .quote-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+  .quote-text {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    font-style: italic;
+    padding-left: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-attr {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 10px;
+    font-weight: 500;
+    padding-left: 2px;
+  }
 
-  /* ── CONTENT ── */
-  .content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-  .view { display: none; flex: 1; overflow: hidden; flex-direction: column; }
-  .view.on { display: flex; }
+  /* GREETING */
+  .greeting-card {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 18px 24px;
+  }
+  .greeting-h {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .greeting-h .name { color: var(--green); }
+  .greeting-focus {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
 
-  /* ════════════════════════════════
-     BRIEF AGENT VIEW
-  ════════════════════════════════ */
-  .chat-ctx { padding: 10px 24px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .ctx-pill { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 7px; border-radius: 4px; background: var(--green-glow); border: 1px solid var(--green); color: var(--green); }
-  .ctx-label { font-size: 12px; color: var(--text2); }
-  .ctx-day { font-size: 12px; color: var(--text3); margin-left: auto; font-family: var(--mono); }
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .stat-v {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-l {
+    font-size: 11px;
+    color: var(--text3);
+    font-weight: 500;
+  }
 
-  .brief-sub-tabs { display: flex; padding: 0 24px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-  .bst { font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 8px 14px; background: none; border: none; color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em; }
-  .bst:hover { color: var(--text2); }
-  .bst.on { color: var(--green); border-bottom-color: var(--green); }
+  /* TOOL CARDS */
+  .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .tool-card:hover {
+    border-color: var(--green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+  .tool-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .tool-icon.green { background: var(--green-light); }
+  .tool-icon.navy { background: var(--navy-light); }
+  .tool-name {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .tool-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .tool-arrow { font-size: 16px; color: var(--border2); margin-left: auto; align-self: flex-end; }
+  .tool-card:hover .tool-arrow { color: var(--green); }
 
-  .bview { display: none; flex: 1; overflow: hidden; flex-direction: column; }
-  .bview.on { display: flex; }
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text3);
+    padding-top: 4px;
+  }
+  .footer a { color: var(--green); text-decoration: none; }
 
-  .messages { flex: 1; overflow-y: auto; padding: 18px 24px; display: flex; flex-direction: column; gap: 14px; }
-  .message { display: flex; gap: 10px; align-items: flex-start; }
-  .message.user { flex-direction: row-reverse; }
-  .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
-  .avatar.agent { background: var(--green-glow); border: 1px solid var(--green); color: var(--green); }
-  .avatar.user { background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); }
-  .bubble { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.65; }
-  .bubble.agent { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-top-left-radius: 2px; }
-  .bubble.user { background: var(--green-glow); border: 1px solid rgba(29,158,117,0.4); color: var(--text); border-top-right-radius: 2px; }
-  .bubble.system { background: var(--surface); border: 1px solid var(--border); color: var(--text3); font-size: 11px; font-family: var(--mono); max-width: 100%; width: 100%; border-radius: 6px; padding: 8px 12px; }
-  .bubble strong { color: var(--green); font-weight: 600; }
-  .typing { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
-  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--green); opacity: 0.4; animation: blink 1.2s ease-in-out infinite; }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1.1)} }
-
-  .input-area { padding: 12px 24px; border-top: 1px solid var(--border); flex-shrink: 0; background: var(--bg); }
-  .input-row { display: flex; gap: 8px; align-items: flex-end; }
-  .input-box { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 14px; color: var(--text); font-family: var(--sans); font-size: 13px; resize: none; outline: none; min-height: 40px; max-height: 120px; transition: border-color 0.15s; line-height: 1.5; }
-  .input-box:focus { border-color: var(--green); }
-  .input-box::placeholder { color: var(--text3); }
-  .send-btn { width: 36px; height: 36px; border-radius: 7px; background: var(--green); border: none; cursor: pointer; color: #fff; font-size: 17px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; align-self: flex-end; }
-  .send-btn:hover { background: var(--green-dim); }
-  .send-btn:disabled { background: var(--border); cursor: not-allowed; }
-  .input-hint { font-size: 11px; color: var(--text3); margin-top: 5px; font-family: var(--mono); }
-
-  .scrollpane { flex: 1; overflow-y: auto; padding: 18px 24px; }
-  .pane-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .pane-title { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; }
-  .ghost-btn { font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border2); background: none; color: var(--text3); cursor: pointer; }
-  .ghost-btn:hover { border-color: var(--red); color: var(--red); }
-  .day-block { margin-bottom: 20px; }
-  .day-lbl { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-  .day-lbl::after { content:''; flex:1; height:1px; background:var(--border); }
-  .data-entry { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin-bottom: 6px; }
-  .data-q { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-bottom: 4px; }
-  .data-a { font-size: 13px; color: var(--text); line-height: 1.5; }
-  .empty-msg { padding: 40px 24px; text-align: center; color: var(--text3); font-family: var(--mono); font-size: 12px; line-height: 1.8; }
-  .brief-actions { padding: 12px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; flex-shrink: 0; }
-  .btn { font-family: var(--mono); font-size: 11px; font-weight: 500; padding: 7px 13px; border-radius: 6px; border: 1px solid var(--border2); background: none; color: var(--text2); cursor: pointer; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.04em; }
-  .btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
-  .btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
-  .btn.primary:hover { background: var(--green-dim); }
-  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
-  .brief-wrap { flex:1; overflow-y:auto; padding: 18px 24px; }
-  .brief-output { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; font-size: 13px; line-height: 1.75; color: var(--text); }
-  .brief-heading { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-  .brief-section { margin-bottom: 18px; }
-  .brief-body { color: var(--text2); line-height: 1.75; }
-  .brief-body li { margin-left: 16px; margin-bottom: 4px; }
-
-  /* ════════════════════════════════
-     TRACKER VIEW
-  ════════════════════════════════ */
-  .tracker-content { flex: 1; overflow-y: auto; padding: 16px 24px 40px; }
-  .t-summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
-  .t-met { background: var(--surface2); border-radius: 6px; padding: 10px 12px; }
-  .t-met-l { font-size: 11px; color: var(--text3); margin-bottom: 3px; }
-  .t-met-v { font-size: 20px; font-weight: 500; color: var(--text); font-family: var(--mono); }
-  .t-filter { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
-  .fbtn { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); background: none; color: var(--text3); cursor: pointer; transition: all .15s; text-transform: uppercase; letter-spacing: .04em; }
-  .fbtn:hover { border-color: var(--border2); color: var(--text2); }
-  .fbtn.on { background: var(--surface2); border-color: var(--border2); color: var(--text); }
-  .stream-block { margin-bottom: 22px; }
-  .stream-hd { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-  .stream-hd::after { content:''; flex:1; height:1px; background:var(--border); }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 7px; overflow: hidden; transition: border-color .15s; }
-  .card:hover { border-color: var(--border2); }
-  .card.open { border-color: var(--border2); }
-  .card-top { display: flex; align-items: center; gap: 10px; padding: 11px 15px; cursor: pointer; }
-  .c-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-  .c-info { flex: 1; min-width: 0; }
-  .c-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .c-sub { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .c-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px; white-space: nowrap; font-family: var(--mono); }
-  .p-done { background: rgba(29,158,117,0.15); color: #1D9E75; }
-  .p-active { background: rgba(88,166,255,0.12); color: #58A6FF; }
-  .p-pending { background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
-  .p-blocked { background: rgba(248,81,73,0.12); color: #F85149; }
-  .p-review { background: rgba(212,160,23,0.15); color: #D4A017; }
-  .prog-wrap { width: 64px; }
-  .prog-bar { height: 3px; background: var(--border2); border-radius: 2px; overflow: hidden; }
-  .prog-fill { height: 100%; border-radius: 2px; }
-  .prog-num { font-size: 10px; color: var(--text3); text-align: right; margin-top: 2px; font-family: var(--mono); }
-  .chevron { font-size: 13px; color: var(--text3); transition: transform .2s; }
-  .chevron.open { transform: rotate(180deg); }
-  .card-body { display: none; border-top: 1px solid var(--border); padding: 12px 15px; }
-  .card-body.open { display: block; }
-  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .bd-label { font-size: 10px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-  .next-action { font-size: 12px; color: var(--text2); line-height: 1.55; }
-  .doc-row { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
-  .doc-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--surface2); color: var(--text3); border: 1px solid var(--border); font-family: var(--mono); }
-  .ms-list { list-style: none; }
-  .ms-item { display: flex; align-items: flex-start; gap: 7px; padding: 4px 0; border-bottom: 1px solid var(--border); }
-  .ms-item:last-child { border-bottom: none; }
-  .ms-box { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; cursor: pointer; margin-top: 1px; transition: all .15s; }
-  .ms-box.done { background: var(--green-glow); border-color: var(--green); color: var(--green); }
-  .ms-text { font-size: 12px; color: var(--text2); line-height: 1.4; flex: 1; }
-  .ms-text.done { text-decoration: line-through; color: var(--text3); }
-  .t-empty { padding: 40px 24px; text-align: center; color: var(--text3); font-family: var(--mono); font-size: 12px; }
-
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  @media (max-width: 480px) {
+    .tools { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+  }
 </style>
 </head>
 <body>
-<div class="app">
+<div class="hub">
 
   <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <div class="logo-mark">AC</div>
+  <div class="header-card">
+    <div class="header-top">
+      <div class="logo-wrap">
+        <img src="https://static.wixstatic.com/media/a1057a_77cd6d5cc47c4b2d965e570510966b83~mv2.png/v1/fill/w_223,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Copy%20of%20Content%20Snare%20Logo%20atCause%20Law%20Office%20(800%20%C3%97%20400%20px).png" alt="atCAUSE Law Office" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--navy);letter-spacing:0.02em;">atCAUSE</div>
+      </div>
+      <div class="header-titles">
+        <div class="header-title">Sales Director Hub</div>
+        <div class="header-sub">Jon Morris &nbsp;·&nbsp; atCAUSE Law Office</div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="day-badge-row" id="dayBadges"></div>
+      <div class="date-label" id="dateLabel"></div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-card">
+    <div class="quote-label">Today's focus</div>
+    <div class="quote-text" id="quoteText"></div>
+    <div class="quote-attr" id="quoteAttr"></div>
+  </div>
+
+  <!-- GREETING -->
+  <div class="greeting-card">
+    <div class="greeting-h">Good <span class="name" id="tod"></span>, Jon.</div>
+    <div class="greeting-focus" id="focus"></div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat"><div class="stat-v">14</div><div class="stat-l">Projects</div></div>
+    <div class="stat"><div class="stat-v" id="daysIn">1</div><div class="stat-l">Days in role</div></div>
+    <div class="stat"><div class="stat-v">60</div><div class="stat-l">Day target</div></div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="tools">
+    <a href="/brief.html" class="tool-card">
+      <div class="tool-icon green">&#128203;</div>
       <div>
-        <div class="header-title">atCAUSE Sales Director</div>
-        <div class="header-sub" id="headerSub">Jon Morris</div>
+        <div class="tool-name">Weekly brief</div>
+        <div class="tool-desc">Daily check-ins that build Joe's Monday update automatically</div>
       </div>
-    </div>
-    <div class="header-right">
-      <div class="day-badges" id="dayBadges"></div>
-    </div>
+      <div class="tool-arrow">&#8599;</div>
+    </a>
+    <a href="/tracker.html" class="tool-card">
+      <div class="tool-icon navy">&#128202;</div>
+      <div>
+        <div class="tool-name">Project tracker</div>
+        <div class="tool-desc">All workstreams with milestones, status, and next actions</div>
+      </div>
+      <div class="tool-arrow">&#8599;</div>
+    </a>
   </div>
 
-  <!-- NAV TABS -->
-  <div class="nav-tabs">
-    <button class="nav-tab on" onclick="switchView('brief',this)" id="briefTab">
-      <i class="ti ti-message" aria-hidden="true"></i> Weekly brief
-      <span class="tab-dot" id="briefDot"></span>
-    </button>
-    <button class="nav-tab" onclick="switchView('tracker',this)">
-      <i class="ti ti-layout-kanban" aria-hidden="true"></i> Project tracker
-    </button>
+  <!-- FOOTER -->
+  <div class="footer">
+    jonathan.m@atcauselaw.com &nbsp;·&nbsp; (813) 444-8663 &nbsp;·&nbsp;
+    <a href="https://atcauselaw.com" target="_blank">atcauselaw.com</a>
   </div>
 
-  <!-- CONTENT -->
-  <div class="content">
-
-    <!-- ══ BRIEF VIEW ══ -->
-    <div class="view on" id="view-brief">
-      <div class="chat-ctx">
-        <div class="ctx-pill">LIVE</div>
-        <div class="ctx-label" id="ctxLabel">Loading...</div>
-        <div class="ctx-day" id="ctxDay"></div>
-      </div>
-      <div class="brief-sub-tabs">
-        <button class="bst on" onclick="switchBST('chat',this)">Check-in</button>
-        <button class="bst" onclick="switchBST('data',this)">Data log</button>
-        <button class="bst" onclick="switchBST('monday',this)">Monday brief</button>
-      </div>
-
-      <div class="bview on" id="bv-chat">
-        <div class="messages" id="messages"></div>
-        <div class="input-area">
-          <div class="input-row">
-            <textarea id="inputBox" class="input-box" placeholder="Type your answer..." onkeydown="handleKey(event)" oninput="autoResize(this)" rows="1"></textarea>
-            <button class="send-btn" id="sendBtn" onclick="sendMessage()">&#8593;</button>
-          </div>
-          <div class="input-hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</div>
-        </div>
-      </div>
-
-      <div class="bview" id="bv-data">
-        <div class="scrollpane">
-          <div class="pane-hdr">
-            <div class="pane-title">Accumulated data this week</div>
-            <button class="ghost-btn" onclick="clearWeek()">Clear week</button>
-          </div>
-          <div id="dataLog"></div>
-        </div>
-      </div>
-
-      <div class="bview" id="bv-monday">
-        <div class="brief-actions">
-          <button class="btn primary" id="genBtn" onclick="generateBrief()">Generate Monday brief</button>
-          <button class="btn" onclick="copyBrief()">Copy text</button>
-          <button class="btn" onclick="newWeek()">New week</button>
-        </div>
-        <div class="brief-wrap">
-          <div class="brief-output" id="briefOutput">
-            <span style="color:var(--text3);font-family:var(--mono);font-size:12px;">Answer the daily check-in questions Mon-Fri, then generate the Monday brief.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ TRACKER VIEW ══ -->
-    <div class="view" id="view-tracker">
-      <div class="tracker-content">
-        <div class="t-summary" id="tSummary"></div>
-        <div class="t-filter" id="tFilter"></div>
-        <div id="tProjects"></div>
-      </div>
-    </div>
-
-  </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
-// SHARED
-// ═══════════════════════════════════════
-function load(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const DAYS = ['MON','TUE','WED','THU','FRI'];
+const DAY_FOCUS = {
+  0: 'Weekend. Rest, reset, prepare. Monday comes fast.',
+  1: 'Monday - generate the brief and get it to Joe. Pipeline review with the team.',
+  2: "Tuesday - check Jose's progress. July hire prep on track?",
+  3: 'Wednesday - re-engagement sequence. Any responses from cold prospects?',
+  4: 'Thursday - referral partners. Any meetings booked or held this week?',
+  5: 'Friday - log the week. Wins, blockers, next week priorities.',
+  6: 'Weekend. Rest, reset, prepare. Monday comes fast.'
+};
 
-// ═══════════════════════════════════════
-// BRIEF AGENT
-// ═══════════════════════════════════════
-const DAYS=['MON','TUE','WED','THU','FRI'];
-const DAY_FOCUS={MON:{label:'Pipeline & Numbers'},TUE:{label:'Team & Activity'},WED:{label:'Deals & Follow-up'},THU:{label:'Referrals & BD'},FRI:{label:'Wins, Blockers & Next Week'}};
-let currentDay=getDefaultDay(),weekData=load('atcause_weekdata')||{},chatHistory=[],msgList=[],loading=false,briefText='';
-
-function getDefaultDay(){const d=new Date().getDay();return DAYS[(d>=1&&d<=5)?d-1:0];}
-function switchView(id,btn){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('on'));document.getElementById('view-'+id).classList.add('on');btn.classList.add('on');if(id==='tracker')renderTracker();}
-function switchBST(id,btn){document.querySelectorAll('.bview').forEach(v=>v.classList.remove('on'));document.querySelectorAll('.bst').forEach(b=>b.classList.remove('on'));document.getElementById('bv-'+id).classList.add('on');btn.classList.add('on');if(id==='data')renderDataLog();}
-
-function renderDayBadges(){
-  document.getElementById('dayBadges').innerHTML=DAYS.map(d=>{
-    const active=d===currentDay?' active':'';
-    const hasData=weekData[d]&&weekData[d].length>0;
-    const dot=hasData?'<span class="dot"></span>':'';
-    return`<button class="day-badge${active}${hasData?' has-data':''}" onclick="switchDay('${d}')">${d}${dot}</button>`;
-  }).join('');
-  const total=Object.values(weekData).flat().length;
-  document.getElementById('briefDot').style.display=total>0?'block':'none';
-}
-
-function switchDay(day){currentDay=day;chatHistory=[];msgList=[];document.getElementById('messages').innerHTML='';renderDayBadges();setCtxBar();startConversation();}
-function setCtxBar(){const f=DAY_FOCUS[currentDay];document.getElementById('ctxLabel').textContent=`${f.label} - building this week's brief`;document.getElementById('ctxDay').textContent=currentDay;}
-
-function buildSystem(){
-  return`You are a direct, no-nonsense weekly briefing agent for Jon Morris, Sales Director at atCAUSE Law Office (the Non-Stuffy Attorneys) in Clearwater, FL. Ask Jon sharp, specific questions each day to build a tight Monday morning executive brief for Joe Guernaccini (founder/owner).
-
-KEY CONTEXT:
-- atCAUSE: estate planning, probate, elder law/Medicaid, business law. Flat-fee billing. Flagship: Primora Trust Plan. Probate is highest call volume.
-- Revenue ~$426K/month. 10% growth target in 60 days. 1,100+ leads/month from marketing. CRM: Zoho + RingCentral.
-- Team: 2 intake reps + backup, tenured consultant (BD transition planned), Jose Chavez (new consultant in Phase 1 product mastery), new sales consultant starting July (elder care background), attorney doing temp consultant support.
-- Jon building: post-consult follow-up sequence, intake scripts, probate talk track, consultation framework, referral partner outreach, team training program.
-- Joe is sharp, frank, direct. No fluff, no made-up numbers. Plain language.
-
-TODAY: ${currentDay} - Focus: ${DAY_FOCUS[currentDay].label}
-DATA SO FAR: ${JSON.stringify(weekData)}
-
-RULES: Ask ONE specific question at a time. Never "how's it going." Push back on vague answers. Flag unknowns as TBD. After 4-6 data points wrap up and tell him to come back tomorrow. Keep responses SHORT.
-
-DAY PRIORITIES:
-MON: leads received, consultations booked vs held, close rate, revenue closed, unsigned prospect count from Zoho
-TUE: Jose's Phase 1 progress, intake rep metrics, July hire readiness, team issues
-WED: follow-up sequence results, cold lead re-engagements, Primora vs basic attach rate
-THU: referral partner meetings, new contacts, referral leads in pipeline
-FRI: biggest win (specific + $), biggest blocker, what's behind, next week priorities`;}
-
-async function startConversation(){
-  const existing=weekData[currentDay];const hasData=existing&&existing.length>0;
-  const openMsg=hasData?`Resuming ${currentDay}. Already captured: ${JSON.stringify(existing)}. Continue or go deeper.`:`Starting ${currentDay}. Focus: ${DAY_FOCUS[currentDay].label}. Ask first question.`;
-  chatHistory=[{role:'user',content:openMsg}];
-  if(hasData)addBubble('system',`Resuming ${currentDay} - ${existing.length} data point${existing.length>1?'s':''} logged`);
-  await callAPI();}
-
-async function sendMessage(){
-  const box=document.getElementById('inputBox');const text=box.value.trim();
-  if(!text||loading)return;box.value='';autoResize(box);
-  addBubble('user',text);chatHistory.push({role:'user',content:text});
-  const lastAgent=[...msgList].reverse().find(m=>m.role==='agent');
-  if(lastAgent){if(!weekData[currentDay])weekData[currentDay]=[];weekData[currentDay].push({q:lastAgent.text,a:text,ts:Date.now()});save('atcause_weekdata',weekData);renderDayBadges();}
-  await callAPI();}
-
-async function callAPI(){
-  setLoading(true);
-  try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:buildSystem(),messages:chatHistory})});
-    const data=await res.json();const text=data.content?.[0]?.text||'Something went wrong.';
-    addBubble('agent',text);chatHistory.push({role:'assistant',content:text});
-  }catch(e){addBubble('agent','Connection error. Try again.');}
-  setLoading(false);}
-
-async function generateBrief(){
-  const total=Object.values(weekData).flat().length;
-  if(total===0){document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">No data yet. Complete daily check-ins first.</div>';return;}
-  document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">Generating...</div>';
-  document.getElementById('genBtn').disabled=true;
-  const prompt=`Assemble a Monday morning executive brief for Joe Guernaccini, founder of atCAUSE Law Office. Written by Jon Morris, Sales Director.
-TONE: Direct. Frank. No fluff. Short sentences. Never invent data - flag unconfirmed numbers as TBD.
-DATA: ${JSON.stringify(weekData,null,2)}
-FORMAT - use exactly these headers:
-THE WEEK IN NUMBERS
-WHAT MOVED
-WHAT DIDN'T MOVE
-TEAM UPDATE
-REFERRALS & BD
-PRIORITY THIS WEEK
-WHAT I NEED FROM YOU
-Keep under one page. First person. "Nothing to report" if a section is empty.`;
-  try{
-    const res=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();briefText=data.content?.[0]?.text||'Error.';renderBriefOutput(briefText);
-  }catch(e){document.getElementById('briefOutput').innerHTML='<div style="color:var(--red);">Error generating brief.</div>';}
-  document.getElementById('genBtn').disabled=false;}
-
-function renderBriefOutput(text){
-  const HEADINGS=['THE WEEK IN NUMBERS','WHAT MOVED',"WHAT DIDN'T MOVE",'TEAM UPDATE','REFERRALS & BD','PRIORITY THIS WEEK','WHAT I NEED FROM YOU'];
-  const lines=text.split('\n');let html='',buffer=[],currentHeading=null;
-  function flush(){if(!buffer.length)return;const c=buffer.join('\n').trim();if(!c){buffer=[];return;}const bh=c.split('\n').map(l=>{const t=l.trim();if(!t)return'';if(t.startsWith('-')||t.startsWith('*'))return`<li>${esc(t.replace(/^[-*]\s*/,''))}</li>`;return`<p style="margin-bottom:5px;">${esc(t)}</p>`;}).join('');const hasLi=bh.includes('<li>');html+=`<div class="brief-section">`;if(currentHeading)html+=`<div class="brief-heading">${esc(currentHeading)}</div>`;html+=`<div class="brief-body">${hasLi?`<ul style="padding-left:16px;margin-top:3px;">${bh}</ul>`:bh}</div></div>`;buffer=[];}
-  lines.forEach(l=>{const t=l.trim();const isH=HEADINGS.some(h=>t.toUpperCase()===h||t.toUpperCase().startsWith(h));if(isH){flush();currentHeading=t;}else buffer.push(l);});flush();
-  document.getElementById('briefOutput').innerHTML=html||'<div style="color:var(--text3)">Could not parse output.</div>';}
-
-function copyBrief(){if(!briefText)return;navigator.clipboard.writeText(briefText).catch(()=>{});const b=event.target;const o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1500);}
-function newWeek(){if(!confirm('Start a new week? This clears all data.'))return;weekData={};save('atcause_weekdata',weekData);briefText='';document.getElementById('briefOutput').innerHTML='<div style="color:var(--text3);font-family:var(--mono);font-size:12px;">New week started.</div>';renderDayBadges();renderDataLog();chatHistory=[];msgList=[];document.getElementById('messages').innerHTML='';startConversation();}
-function clearWeek(){if(!confirm('Clear all data?'))return;weekData={};save('atcause_weekdata',weekData);renderDayBadges();renderDataLog();}
-function renderDataLog(){const c=document.getElementById('dataLog');const days=DAYS.filter(d=>weekData[d]&&weekData[d].length>0);if(!days.length){c.innerHTML='<div class="empty-msg">No data yet.<br>Complete daily check-ins to build the brief.</div>';return;}c.innerHTML=days.map(d=>`<div class="day-block"><div class="day-lbl">${d}</div>${weekData[d].map(e=>`<div class="data-entry"><div class="data-q">${esc(e.q)}</div><div class="data-a">${esc(e.a)}</div></div>`).join('')}</div>`).join('');}
-function addBubble(role,text){msgList.push({role,text});const c=document.getElementById('messages');document.querySelector('.typing-wrap')?.remove();const el=document.createElement('div');if(role==='system'){el.innerHTML=`<div class="bubble system">${esc(text)}</div>`;}else{el.className=`message ${role}`;el.innerHTML=`<div class="avatar ${role}">${role==='agent'?'AG':'JM'}</div><div class="bubble ${role}">${fmtBubble(text)}</div>`;}c.appendChild(el);c.scrollTop=c.scrollHeight;}
-function fmtBubble(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
-function setLoading(v){loading=v;document.getElementById('sendBtn').disabled=v;document.querySelector('.typing-wrap')?.remove();if(v){const c=document.getElementById('messages');const el=document.createElement('div');el.className='message agent typing-wrap';el.innerHTML=`<div class="avatar agent">AG</div><div class="bubble agent"><div class="typing"><span></span><span></span><span></span></div></div>`;c.appendChild(el);c.scrollTop=c.scrollHeight;}}
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-
-// ═══════════════════════════════════════
-// PROJECT TRACKER
-// ═══════════════════════════════════════
-const PROJECTS=[
-  {id:'followup',title:'Post-consult follow-up sequence',sub:'Re-engage unsigned prospects - 4-touch 10-day sequence',stream:'revenue',status:'active',owner:'Jon',icon:'ti-mail',bg:'rgba(29,158,117,0.15)',ic:'#1D9E75',nextAction:'Pull unsigned prospect list from Zoho - actual count needed before deploying. Sequence is built and ready.',docs:['Post-Consult Follow-up Sequence'],milestones:[{t:'4-touch email/SMS sequence written',d:true},{t:'Objection handler scripts (all 4 types)',d:true},{t:'Pull unsigned prospect list from Zoho',d:false},{t:'Deploy sequence to cold list',d:false},{t:'First re-engagement closes tracked',d:false}]},
-  {id:'leadresponse',title:'Lead response automation',sub:'Auto-text web form leads within 5 minutes',stream:'revenue',status:'pending',owner:'Jon + Zoho admin',icon:'ti-bolt',bg:'rgba(212,160,23,0.15)',ic:'#D4A017',nextAction:'Configure auto-text workflow in Zoho/RingCentral. Message drafted. Needs technical setup.',docs:[],milestones:[{t:'Auto-text message drafted',d:true},{t:'Zoho workflow configured',d:false},{t:'RingCentral SMS connected',d:false},{t:'Tested end-to-end',d:false}]},
-  {id:'leadnurture',title:'Zoho lead nurture campaign',sub:'Email + SMS cadence - A/B testing - sales tactics baked in',stream:'revenue',status:'pending',owner:'Jon',icon:'ti-chart-arrows',bg:'rgba(163,113,247,0.15)',ic:'#A371F7',nextAction:'Architecture to be built after Joe confirms product focus.',docs:[],milestones:[{t:'Joe alignment on product focus confirmed',d:false},{t:'Campaign architecture mapped',d:false},{t:'Email + SMS copy written',d:false},{t:'A/B test variants created',d:false},{t:'Live in Zoho with tracking',d:false}]},
-  {id:'probatetrack',title:'Probate talk track',sub:'Buzz-word confidence - intake vs attorney boundary defined',stream:'revenue',status:'active',owner:'Jon',icon:'ti-file-text',bg:'rgba(88,166,255,0.12)',ic:'#58A6FF',nextAction:'Build the probate-specific talk track: key buzz words, client psychology, and clear intake vs. attorney boundaries.',docs:['Product Knowledge Training Guide'],milestones:[{t:'Probate section in product training doc',d:true},{t:'Key buzz words documented',d:false},{t:'Intake vs attorney boundary defined',d:false},{t:'Client psychology framework written',d:false},{t:'Role-play scenarios built around probate',d:false}]},
-  {id:'jose',title:'Jose Chavez - 60-day development plan',sub:'Product mastery - intake calls - co-consults - independent',stream:'team',status:'active',owner:'Jon',icon:'ti-user',bg:'rgba(212,160,23,0.15)',ic:'#D4A017',nextAction:'Deliver plan to Jose. Start Phase 1 (product mastery) this week.',docs:['Jose 60-Day Development Plan','Product Knowledge Training Guide'],milestones:[{t:'Development plan built',d:true},{t:'Plan delivered to Jose',d:false},{t:'Phase 1 exit assessment passed',d:false},{t:'Phase 2 intake calls started',d:false},{t:'Phase 2 exit assessment passed',d:false},{t:'Phase 3 co-consultations started',d:false},{t:'First independent consultation',d:false},{t:'15%+ close rate 3 consecutive weeks',d:false}]},
-  {id:'julyhire',title:'Sales consultant - July hire onboarding',sub:'Elder care background - 60-day ramp - overlap plan with Jose',stream:'team',status:'active',owner:'Jon',icon:'ti-user-plus',bg:'rgba(11,122,117,0.15)',ic:'#0B7A75',nextAction:'Finalize week-by-week onboarding calendar before her start date. Training doc and assessment ready.',docs:['Sales Consultant July Hire 60-Day Plan','Product Knowledge Training Guide'],milestones:[{t:'Development plan built',d:true},{t:'Training materials ready',d:true},{t:'Week-by-week onboarding calendar created',d:false},{t:'System access and Zoho login arranged',d:false},{t:'Day 1 agenda ready',d:false},{t:'Week 4 assessment passed',d:false},{t:'Independent consultations by day 60',d:false}]},
-  {id:'augusthire',title:'August hire proposal',sub:'Third consultant - trains alongside July hire',stream:'team',status:'review',owner:'Jon - Joe decision',icon:'ti-users',bg:'rgba(163,113,247,0.15)',ic:'#A371F7',nextAction:'Present business case to Joe this week. Need yes/no so job posting can go live in time.',docs:['Executive Brief Week 1'],milestones:[{t:'Business case built',d:true},{t:'Included in executive brief',d:true},{t:'Joe decision received',d:false},{t:'Job description written',d:false},{t:'Sourcing started',d:false},{t:'Hired and start date confirmed',d:false}]},
-  {id:'bdtransition',title:'Tenured consultant - BD transition',sub:'Metric-gated 3-phase plan - referral channel ownership',stream:'team',status:'active',owner:'Jon',icon:'ti-chart-arrows',bg:'rgba(29,158,117,0.15)',ic:'#1D9E75',nextAction:'Phase 1: shadow her this week and document everything.',docs:['Sales Team Operating System'],milestones:[{t:'BD transition plan documented',d:true},{t:'Phase 1: all knowledge extracted',d:false},{t:'New consultant hits 15% close rate (trigger)',d:false},{t:'Phase 2: volume transfer begins',d:false},{t:'Phase 3: full BD transition',d:false},{t:'5 active referral partners in 60 days of BD',d:false}]},
-  {id:'teamtraining',title:'Team training program',sub:'Weekly sessions - job-direct curriculum - builds confidence',stream:'team',status:'pending',owner:'Jon',icon:'ti-school',bg:'rgba(88,166,255,0.12)',ic:'#58A6FF',nextAction:'Design the training curriculum - beyond drills and role-plays.',docs:['Sales Team Operating System'],milestones:[{t:'Training curriculum designed',d:false},{t:'Weekly session format agreed with Joe',d:false},{t:'First session delivered',d:false},{t:'Running consistently weekly',d:false}]},
-  {id:'weeklybrief',title:'Weekly executive brief to Joe',sub:'Monday morning - agent accumulates data Mon-Fri',stream:'systems',status:'done',owner:'Jon',icon:'ti-report',bg:'rgba(29,158,117,0.15)',ic:'#1D9E75',nextAction:'Live at atcause-weekly.netlify.app - use daily check-in Mon-Fri, generate brief Monday morning.',docs:['Executive Brief Week 1'],milestones:[{t:'Brief format designed',d:true},{t:'Week 1 executive brief built',d:true},{t:'Weekly brief agent built',d:true},{t:'Deployed to Netlify',d:true},{t:'First Monday brief delivered to Joe',d:false}]},
-  {id:'salesopsystem',title:'Sales team operating system',sub:'Role playbooks - scripts - ramp plans - KPIs',stream:'systems',status:'active',owner:'Jon',icon:'ti-settings',bg:'rgba(212,160,23,0.15)',ic:'#D4A017',nextAction:'Complete probate talk track and consultation close framework. Weekly KPI dashboard still to build.',docs:['Sales Team Operating System','Product Knowledge Training Guide','Intake Rep Week 4 Assessment'],milestones:[{t:'Team structure and risk map',d:true},{t:'Intake rep playbook and script',d:true},{t:'Consultation 4-stage framework',d:true},{t:'Objection handling guide',d:true},{t:'30/60-day ramp plans',d:true},{t:'Week 4 intake assessment',d:true},{t:'Probate talk track',d:false},{t:'Weekly KPI dashboard',d:false},{t:'Consultant week 8 benchmark assessment',d:false}]},
-  {id:'producttraining',title:'Product knowledge training guide',sub:'All practice areas - client profiles - what not to say',stream:'systems',status:'review',owner:'Jon - Ashly review',icon:'ti-book',bg:'rgba(11,122,117,0.15)',ic:'#0B7A75',nextAction:'Send to Ashly to verify product details and confirm Primora pricing before distributing.',docs:['Product Knowledge Training Guide'],milestones:[{t:'All 4 practice areas documented',d:true},{t:'Client profiles section',d:true},{t:'What not to say section',d:true},{t:'Quick reference card',d:true},{t:'Ashly reviews for accuracy',d:false},{t:'Primora pricing confirmed',d:false},{t:'Distributed to team',d:false}]},
-  {id:'referral',title:'Referral partner program',sub:'30 targets - 5 partner types - scripts and playbook built',stream:'bd',status:'active',owner:'Jon',icon:'ti-handshake',bg:'rgba(29,158,117,0.15)',ic:'#1D9E75',nextAction:'Build target list of 30 in Pinellas County. First outreach wave this week.',docs:['Referral Partner Playbook','Primora One-Pager','Elder Law One-Pager','Probate Referral Card'],milestones:[{t:'Full playbook with strategy and scripts',d:true},{t:'3 leave-behind docs built',d:true},{t:'Target list of 30 built',d:false},{t:'First outreach wave (10 contacts)',d:false},{t:'5 coffee/lunch meetings held',d:false},{t:'First referral lead in pipeline',d:false},{t:'5 active referral partners by day 60',d:false}]},
-  {id:'joealignment',title:'Joe alignment - two open decisions',sub:'Product focus priority - August hire approval',stream:'bd',status:'blocked',owner:'Joe decision needed',icon:'ti-alert-triangle',bg:'rgba(248,81,73,0.12)',ic:'#F85149',nextAction:'Get in front of Joe this week with the executive brief. Two decisions needed.',docs:['Executive Brief Week 1'],milestones:[{t:'Executive brief built and delivered',d:true},{t:'Product focus decision from Joe',d:false},{t:'August hire decision from Joe',d:false}]}
+// Lombardi-style motivational quotes
+const QUOTES = [
+  { text: "The price of success is hard work, dedication to the job at hand, and the determination that whether we win or lose, we have applied the best of ourselves to the task at hand.", attr: "Vince Lombardi" },
+  { text: "It's not whether you get knocked down, it's whether you get up.", attr: "Vince Lombardi" },
+  { text: "The only place success comes before work is in the dictionary.", attr: "Vince Lombardi" },
+  { text: "Winning is not a sometime thing; it's an all the time thing. You don't win once in a while, you don't do things right once in a while, you do them right all the time.", attr: "Vince Lombardi" },
+  { text: "The harder you work, the harder it is to surrender.", attr: "Vince Lombardi" },
+  { text: "Individual commitment to a group effort - that is what makes a team work, a company work, a society work, a civilization work.", attr: "Vince Lombardi" },
+  { text: "Once you learn to quit, it becomes a habit.", attr: "Vince Lombardi" },
+  { text: "Perfection is not attainable, but if we chase perfection we can catch excellence.", attr: "Vince Lombardi" },
+  { text: "Leaders are made, they are not born. They are made by hard effort, which is the price which all of us must pay to achieve any goal that is worthwhile.", attr: "Vince Lombardi" },
+  { text: "The measure of who we are is what we do with what we have.", attr: "Vince Lombardi" },
+  { text: "Success demands singleness of purpose.", attr: "Vince Lombardi" },
+  { text: "If you'll not settle for anything less than your best, you will be amazed at what you can accomplish in your lives.", attr: "Vince Lombardi" },
+  { text: "A man can be as great as he wants to be. If you believe in yourself and have the courage, the determination, the dedication, the competitive drive and if you are willing to sacrifice the little things in life and pay the price for the things that are worthwhile, it can be done.", attr: "Vince Lombardi" },
+  { text: "Football is like life - it requires perseverance, self-denial, hard work, sacrifice, dedication and respect for authority.", attr: "Vince Lombardi" },
+  { text: "Some people try to find things in this game that don't exist, but football is only two things - blocking and tackling. The same is true in sales: find the need, solve the problem, close.", attr: "Vince Lombardi" },
+  { text: "Confidence is contagious. So is lack of confidence.", attr: "Vince Lombardi" },
+  { text: "The good Lord gave you a body that can stand most anything. It's your mind you have to convince.", attr: "Vince Lombardi" },
+  { text: "Show me a thoroughly satisfied man and I'll show you a failure.", attr: "Vince Lombardi" },
+  { text: "We would accomplish many more things if we did not think of them as impossible.", attr: "Vince Lombardi" },
+  { text: "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack of will.", attr: "Vince Lombardi" },
+  { text: "There's only one way to succeed in anything and that is to give everything.", attr: "Vince Lombardi" },
+  { text: "If you can accept losing, you can't win. If you can accept losing, you're a loser.", attr: "Vince Lombardi" },
+  { text: "Dictionary is the only place that success comes before work. Hard work is the price we must pay for success.", attr: "Vince Lombardi" },
+  { text: "The spirit, the will to win, and the will to excel are the things that endure. These qualities are so much more important than the events that occur.", attr: "Vince Lombardi" },
+  { text: "In great attempts it is glorious even to fail.", attr: "Vince Lombardi" },
+  { text: "Run to daylight.", attr: "Vince Lombardi" },
+  { text: "There is no room for second place. There is only one place in my game and that is first place.", attr: "Vince Lombardi" },
+  { text: "Mental toughness is many things and rather difficult to explain. Its qualities are sacrifice and self-denial. Also, most importantly, it is combined with a perfectly disciplined will that refuses to give in.", attr: "Vince Lombardi" }
 ];
 
-const STREAMS=['revenue','team','systems','bd'];
-const STREAM_LABELS={revenue:'Revenue',team:'Team',systems:'Systems & tools',bd:'BD & partnerships'};
-let tFilter='all',tExpanded=new Set(),msState=load('ac_tracker_ms')||{};
-function saveMs(){save('ac_tracker_ms',msState);}
-function getMsDone(pid,i){const k=pid+'_'+i;return k in msState?msState[k]:PROJECTS.find(p=>p.id===pid).milestones[i].d;}
-function toggleMs(pid,i,e){e.stopPropagation();msState[pid+'_'+i]=!getMsDone(pid,i);saveMs();renderTracker();}
-function getProgress(p){const total=p.milestones.length;if(!total)return 0;const done=p.milestones.filter((m,i)=>getMsDone(p.id,i)).length;return Math.round(done/total*100);}
-function progColor(pct){if(pct===100)return'#1D9E75';if(pct>=60)return'#58A6FF';if(pct>=30)return'#D4A017';return'#484F58';}
-function pillClass(s){return{done:'p-done',active:'p-active',pending:'p-pending',blocked:'p-blocked',review:'p-review'}[s]||'p-pending';}
-function pillLabel(s){return{done:'Done',active:'Active',pending:'Pending',blocked:'Needs decision',review:'Needs review'}[s]||s;}
-function setTFilter(f,btn){tFilter=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTracker();}
-function toggleCard(id){tExpanded.has(id)?tExpanded.delete(id):tExpanded.add(id);renderTracker();}
-function filteredProjects(){return PROJECTS.filter(p=>{if(tFilter==='all')return true;if(['revenue','team','systems','bd'].includes(tFilter))return p.stream===tFilter;return p.status===tFilter;});}
+function getDayOfYear(d) {
+  const start = new Date(d.getFullYear(), 0, 0);
+  const diff = d - start;
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
 
-function renderTracker(){
-  // Summary
-  const total=PROJECTS.length,done=PROJECTS.filter(p=>p.status==='done').length;
-  const active=PROJECTS.filter(p=>p.status==='active').length;
-  const attn=PROJECTS.filter(p=>p.status==='blocked'||p.status==='review').length;
-  const avg=Math.round(PROJECTS.reduce((a,p)=>a+getProgress(p),0)/total);
-  document.getElementById('tSummary').innerHTML=`
-    <div class="t-met"><div class="t-met-l">Total</div><div class="t-met-v">${total}</div></div>
-    <div class="t-met"><div class="t-met-l">Active</div><div class="t-met-v">${active}</div></div>
-    <div class="t-met"><div class="t-met-l">Done</div><div class="t-met-v">${done}</div></div>
-    <div class="t-met"><div class="t-met-l">Needs attention</div><div class="t-met-v">${attn}</div></div>
-    <div class="t-met"><div class="t-met-l">Progress</div><div class="t-met-v">${avg}%</div></div>`;
+function init() {
+  const now = new Date();
+  const h = now.getHours();
+  const day = now.getDay();
 
-  // Filters
-  const filters=[['all','All'],['active','Active'],['done','Done'],['pending','Pending'],['blocked','Needs decision'],['review','Needs review'],['revenue','Revenue'],['team','Team'],['systems','Systems'],['bd','BD']];
-  document.getElementById('tFilter').innerHTML=filters.map(([f,l])=>`<button class="fbtn${tFilter===f?' on':''}" onclick="setTFilter('${f}',this)">${l}</button>`).join('');
+  // Time of day
+  document.getElementById('tod').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
 
-  // Projects
-  const list=filteredProjects();const c=document.getElementById('tProjects');
-  if(!list.length){c.innerHTML='<div class="t-empty">No projects match this filter.</div>';return;}
-  const byStream={};list.forEach(p=>{if(!byStream[p.stream])byStream[p.stream]=[];byStream[p.stream].push(p);});
-  c.innerHTML=STREAMS.filter(s=>byStream[s]).map(s=>{
-    const cards=byStream[s].map(p=>{
-      const pct=getProgress(p),isOpen=tExpanded.has(p.id);
-      const ms=p.milestones.map((m,i)=>{const done=getMsDone(p.id,i);return`<li class="ms-item"><div class="ms-box ${done?'done':''}" onclick="toggleMs('${p.id}',${i},event)">${done?'<i class="ti ti-check" style="font-size:9px"></i>':''}</div><span class="ms-text ${done?'done':''}">${m.t}</span></li>`;}).join('');
-      const docs=p.docs.length?p.docs.map(d=>`<span class="doc-tag">${d}</span>`).join(''):'';
-      return`<div class="card ${isOpen?'open':''}">
-        <div class="card-top" onclick="toggleCard('${p.id}')">
-          <div class="c-icon" style="background:${p.bg}"><i class="ti ${p.icon}" style="color:${p.ic}" aria-hidden="true"></i></div>
-          <div class="c-info"><div class="c-title">${p.title}</div><div class="c-sub">${p.sub}</div></div>
-          <div class="c-right">
-            <span class="pill ${pillClass(p.status)}">${pillLabel(p.status)}</span>
-            <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${progColor(pct)}"></div></div><div class="prog-num">${pct}%</div></div>
-            <i class="ti ti-chevron-down chevron ${isOpen?'open':''}" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="card-body ${isOpen?'open':''}">
-          <div class="body-grid">
-            <div><div class="bd-label">Next action</div><div class="next-action">${p.nextAction}</div>${docs?`<div class="doc-row">${docs}</div>`:''}</div>
-            <div><div class="bd-label">Milestones</div><ul class="ms-list">${ms}</ul></div>
-          </div>
-        </div>
-      </div>`;}).join('');
-    return`<div class="stream-block"><div class="stream-hd">${STREAM_LABELS[s]}</div>${cards}</div>`;
+  // Date label
+  document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  // Day focus
+  document.getElementById('focus').textContent = DAY_FOCUS[day];
+
+  // Days in role
+  const start = new Date('2026-06-08');
+  const daysIn = Math.max(1, Math.floor((now - start) / 86400000) + 1);
+  document.getElementById('daysIn').textContent = daysIn;
+
+  // Quote - rotate daily using day of year
+  const doy = getDayOfYear(now);
+  const quote = QUOTES[doy % QUOTES.length];
+  document.getElementById('quoteText').textContent = quote.text;
+  document.getElementById('quoteAttr').textContent = '— ' + quote.attr;
+
+  // Day badges
+  renderDayBadges();
+}
+
+function renderDayBadges() {
+  let weekData = {};
+  try { weekData = JSON.parse(localStorage.getItem('atcause_weekdata') || '{}'); } catch(e) {}
+  const now = new Date();
+  const currentDay = DAYS[(now.getDay() >= 1 && now.getDay() <= 5) ? now.getDay() - 1 : 0];
+
+  document.getElementById('dayBadges').innerHTML = DAYS.map(d => {
+    const isActive = d === currentDay;
+    const hasData = weekData[d] && weekData[d].length > 0;
+    const dot = hasData ? '<span class="dot"></span>' : '';
+    return `<button class="day-btn${isActive?' active':''}${hasData?' has-data':''}" onclick="window.location.href='/brief.html'">${d}${dot}</button>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════
-// BOOT
-// ═══════════════════════════════════════
-function init(){
-  const now=new Date();const h=now.getHours();
-  document.getElementById('headerSub').textContent=`Jon Morris - ${h<12?'Good morning':'h<17?Good afternoon':'Good evening'}`;
-  renderDayBadges();setCtxBar();startConversation();
-  // Update header sub with time of day
-  document.getElementById('headerSub').textContent=`Jon Morris`;
-}
 init();
 </script>
 </body>
